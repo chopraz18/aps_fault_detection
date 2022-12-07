@@ -37,7 +37,16 @@ class DataIngestionConfig:
         except Exception  as e:
             raise SensorException(e,sys)     
 
-class DataValidationConfig:...
+class DataValidationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+
+        try:
+            self.data_validation_dir=os.path.join(training_pipeline_config.artifact_dir,"data_validation")
+            self.report_file=os.path.join(self.data_validation_dir,"report.yaml")
+            self.missing_threshold:float=0.7   
+        except Exception as e:
+            raise SensorException(e,sys)
+
 class DataTransformationConfig:...
 class ModelTrainerConfig:...
 class ModelEvaluationConfig:...
