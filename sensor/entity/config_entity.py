@@ -7,6 +7,9 @@ from datetime import datetime
 FILE_NAME = "sensor.csv"
 TRAIN_FILE_NAME = "train.csv"
 TEST_FILE_NAME = "test.csv"
+Transformer_object_file_name="transformer.pkl"
+TARGET_ENCODER_FILE_NAME="target_encoder.pkl"
+MODEL_FILE_NAME="model.pkl"
 
 class TrainingPipelineConfig:
 
@@ -48,7 +51,25 @@ class DataValidationConfig:
         except Exception as e:
             raise SensorException(e,sys)
 
-class DataTransformationConfig:...
-class ModelTrainerConfig:...
+class DataTransformationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+
+        try:
+            self.data_transformation_dir=os.path.join(training_pipeline_config.artifact_dir,"data_transformation")
+            self.transform_object_path=os.path.join(self.data_transformation_dir,"transformed",Transformer_object_file_name)
+            self.target_encoder_object_path=os.path.join(self.data_transformation_dir,"target_encoder",TARGET_ENCODER_FILE_NAME)
+            self.transformed_train_path=os.path.join(self.data_transformation_dir,"transformed",TRAIN_FILE_NAME.replace(".csv",".npy") )
+            self.transformed_test_path=os.path.join(self.data_transformation_dir,"transformed",TEST_FILE_NAME.replace(".csv",".npy"))
+        except Exception as e:
+            raise SensorException(e, sys) 
+
+
+class ModelTrainerConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        self.model_trainer_dir = os.path.join(training_pipeline_config.artifact_dir, "Model_trainer")
+        self.model_path = os.path.join(self.model_trainer_dir,MODEL_FILE_NAME)
+        self.expected_score = 0.7
+        self.overfitting_threshold =0.1
+
 class ModelEvaluationConfig:...
 class ModelPusherConfig:...

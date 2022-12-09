@@ -1,9 +1,11 @@
 import pandas as pd
+import numpy as np
 from sensor.config import mongo_client
 from sensor.logger import logging
 from sensor.exception import SensorException
 import os,sys
 import yaml
+import dill
 
 
 
@@ -50,5 +52,49 @@ def convert_columns_float(df,exclude_columns:list):
                 df[column]=df[column].astype('float')
         return df
     except Exception as e:
-        raise SensorException(e, sys)            
+        raise SensorException(e, sys)   
+
+def save_object(file_path:str, obj:object) -> None:
+    try:
+        logging.info("Entered the save object method of Main Utils class")
+        os.makedirs(os.path.dirname(file_path),exist_ok=True)
+        with open(file_path,'wb') as file_obj:
+            dill.dump(obj, file_obj)
+    except Exception as e:
+        raise SensorException(e, sys)
+
+def load_object(file_path:str) -> object:
+    try:
+        if not os.path.exists(file_path):
+            raise Exception(f"The file: {file_path} doesn't exists") 
+        else:
+            with open(file_path, "rb") as file_obj:
+                return dill.load(file_obj)
+    except Exception as e:
+        raise SensorException(e, sys)
+
+def save_np_array(file_path:str, array:np.array) -> None:
+    """
+    Save numpy array data to file
+    file_path: str location of file to save
+    array: np.array data to save
+    """
+    try:
+        dir_path=os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+        with open(file_path, "wb") as file_obj:
+            np.save(file_obj, array)
+    except Exception as e:
+        raise SensorException(e, sys)
+
+def load_np_array(file_path:str) -> np.array:
+    try:
+        if not os.path.exists(file_path):
+            raise Exception(f"The file: {file_path} doesn't exists") 
+        else:
+            with open(file_path, "rb") as file_obj:
+                return np.load(file_obj)
+    except Exception as e:
+        raise SensorException(e, sys)
+
 
