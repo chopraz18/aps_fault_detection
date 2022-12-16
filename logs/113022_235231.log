@@ -1,9 +1,0 @@
-[ 2022-11-30 23:52:31,181 ] 21 root - INFO - reading data from database:aps and collection:sensor
-[ 2022-11-30 23:52:35,584 ] 23 root - INFO - found columns:Index(['_id', 'class', 'aa_000', 'ab_000', 'ac_000', 'ad_000', 'ae_000',
-       'af_000', 'ag_000', 'ag_001',
-       ...
-       'ee_002', 'ee_003', 'ee_004', 'ee_005', 'ee_006', 'ee_007', 'ee_008',
-       'ee_009', 'ef_000', 'eg_000'],
-      dtype='object', length=172)
-[ 2022-11-30 23:52:35,585 ] 25 root - INFO - dropping columns: _id
-[ 2022-11-30 23:52:35,801 ] 27 root - INFO - columns and rows in df is (36188, 171)

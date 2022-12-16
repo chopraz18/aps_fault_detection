@@ -23,6 +23,8 @@ class ModelTrainerArtifact:
     f1_test_score:float
 
 
-
-class ModelEvaluationArtifact:...
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_selected:bool
+    improved_accuracy:float
 class ModelPusherArtifact:...

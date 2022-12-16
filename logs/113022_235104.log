@@ -1,3 +1,0 @@
-[ 2022-11-30 23:51:04,956 ] 21 root - INFO - reading data from database:aps and collection:sensor
-[ 2022-11-30 23:51:04,959 ] 23 root - INFO - found columns:Index([], dtype='object')
-[ 2022-11-30 23:51:04,960 ] 27 root - INFO - columns and rows in df is (0, 0)
